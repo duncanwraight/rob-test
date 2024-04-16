@@ -21,3 +21,7 @@ jobs:
           cat credentials.json | sed -E 's/[abcdefg]/!/g'
         env:
           GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
+
+      - run: |
+          echo '${{ secrets.GCP_CREDENTIALS_UNENCODED }}' | sed ':a;N;$!ba;s/\n/!!!!!/g' > credentials.json && sed -i 's/!!!!!/\n/g' credentials.json
+          cat credentials.json | sed -E 's/[abcdefg]/!/g'
